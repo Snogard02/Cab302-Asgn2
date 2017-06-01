@@ -52,7 +52,7 @@ public class PizzaGUI extends javax.swing.JFrame implements Runnable, ActionList
 	private JButton btnLoad;
 	private JButton btnReset;
 	private JButton btnInfo;
-	private JButton btnSwitch;
+	private JButton btnCalc;
 	private JPanel pnlBtn;
 	
 	private JTextArea areDisplay; 
@@ -79,7 +79,7 @@ public class PizzaGUI extends javax.swing.JFrame implements Runnable, ActionList
 	    btnLoad = createButton("Load");
 	    btnReset = createButton("Reset");
 	    btnInfo = createButton("Display Information");
-	    btnSwitch = createButton("Display Calculation");
+	    btnCalc = createButton("Display Calculation");
 	    
 	    areDisplay = createTextArea();
 	    scrollDisplay = createScroll(areDisplay);
@@ -141,7 +141,7 @@ public class PizzaGUI extends javax.swing.JFrame implements Runnable, ActionList
 	    addToPanel(pnlBtn, btnLoad,constraints,	 0,0,1,1); 
 	    addToPanel(pnlBtn, btnReset,constraints,1,0,1,1); 
 	    addToPanel(pnlBtn, btnInfo,constraints,  2,0,1,1); 
-	    addToPanel(pnlBtn, btnSwitch,constraints,3,0,1,1); 	
+	    addToPanel(pnlBtn, btnCalc,constraints,3,0,1,1); 	
 	}
 	
 	private void addToPanel(JPanel jp,Component c, GridBagConstraints constraints, int x, int y, int w, int h) {  
@@ -159,7 +159,6 @@ public class PizzaGUI extends javax.swing.JFrame implements Runnable, ActionList
 	
 	public static void main(String[] args) {
 	    JFrame.setDefaultLookAndFeelDecorated(false);
-        SwingUtilities.invokeLater(new PizzaGUI("Pizza Palace Log Reader"));
 	}
 	String line;
 	Pizza currentPizza;
@@ -191,8 +190,9 @@ public class PizzaGUI extends javax.swing.JFrame implements Runnable, ActionList
 			restaurant.resetDetails();
 			areDisplay.setText("");
 			infoLoaded = false;
-		} else if (src==btnSwitch) {
+		} else if (src==btnCalc) {
 			//TODO
+			
 		} else if (src==btnInfo && infoLoaded) {
 			areDisplay.setText(String.format("%-12s %-4s %-6s %-6s %-6s","Type","Qty","Price","Cost","Profit\n"));
 			try {
