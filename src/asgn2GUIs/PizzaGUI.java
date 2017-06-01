@@ -190,17 +190,18 @@ public class PizzaGUI extends javax.swing.JFrame implements Runnable, ActionList
 				} else if (src==btnSwitch) {
 					JOptionPane.showMessageDialog(this,"A Warning Message","Wiring Class: Warning",JOptionPane.WARNING_MESSAGE);
 				} else if (src==btnInfo) {
-					areDisplay.setText("");
-					String line = "";
+					String format = "%12s %6s %6s %6s %6s";
+					areDisplay.setText(String.format(format,"Type","Qty","Price","Cost","Profit\n"));
+					String line;
 					Pizza currentPizza;
 					
 					for(int i = 0;i < restaurant.getNumPizzaOrders(); i++){
 						try {
 							currentPizza = restaurant.getPizzaByIndex(i);
-							String format = "%-10s %2$-3d %3$-3.2f %4$-3.2f %5$-3.2f";
-							line = String.format(format, currentPizza.getPizzaType(),currentPizza.getQuantity(), 
-									currentPizza.getOrderPrice(),currentPizza.getOrderCost(), currentPizza.getOrderProfit());
 							
+							line = String.format(format, currentPizza.getPizzaType(),Integer.toString(currentPizza.getQuantity()), 
+									Double.toString(currentPizza.getOrderPrice()),Double.toString(currentPizza.getOrderCost()), 
+									Double.toString(currentPizza.getOrderProfit()));
 							areDisplay.append(line + "\n");
 			
 						} catch (PizzaException e1) {

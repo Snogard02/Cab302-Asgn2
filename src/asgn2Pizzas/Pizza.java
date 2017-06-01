@@ -70,6 +70,7 @@ public abstract class Pizza  {
 		this.type = type;
 		this.quantity = quantity;
 		this.price = price;
+		calculateCostPerPizza();
 	}
 
 	/**
