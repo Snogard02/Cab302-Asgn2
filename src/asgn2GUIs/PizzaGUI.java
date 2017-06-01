@@ -50,7 +50,7 @@ public class PizzaGUI extends javax.swing.JFrame implements Runnable, ActionList
 	private JPanel pnlFive;
 	
 	private JButton btnLoad;
-	private JButton btnUnload;
+	private JButton btnReset;
 	private JButton btnInfo;
 	private JButton btnSwitch;
 	private JPanel pnlBtn;
@@ -77,7 +77,7 @@ public class PizzaGUI extends javax.swing.JFrame implements Runnable, ActionList
 	    pnlFive = createPanel(Color.LIGHT_GRAY);
 	    
 	    btnLoad = createButton("Load");
-	    btnUnload = createButton("Reset");
+	    btnReset = createButton("Reset");
 	    btnInfo = createButton("Display Information");
 	    btnSwitch = createButton("Display Calculation");
 	    
@@ -139,7 +139,7 @@ public class PizzaGUI extends javax.swing.JFrame implements Runnable, ActionList
 	    constraints.weighty = 50;
 	    
 	    addToPanel(pnlBtn, btnLoad,constraints,	 0,0,1,1); 
-	    addToPanel(pnlBtn, btnUnload,constraints,1,0,1,1); 
+	    addToPanel(pnlBtn, btnReset,constraints,1,0,1,1); 
 	    addToPanel(pnlBtn, btnInfo,constraints,  2,0,1,1); 
 	    addToPanel(pnlBtn, btnSwitch,constraints,3,0,1,1); 	
 	}
@@ -161,60 +161,52 @@ public class PizzaGUI extends javax.swing.JFrame implements Runnable, ActionList
 	    JFrame.setDefaultLookAndFeelDecorated(false);
         SwingUtilities.invokeLater(new PizzaGUI("Pizza Palace Log Reader"));
 	}
+	String line;
+	Pizza currentPizza;
+	Boolean infoLoaded = false;
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		//Get event source 
-				Object src=e.getSource(); 
-   
-				//Consider the alternatives - not all active at once. 
-				if (src== btnLoad){
-					JButton btn = ((JButton) src);
-				      JFileChooser fileChooser = new JFileChooser();
-				      fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
-				      int result = fileChooser.showOpenDialog(btn);
-				      if (result == JFileChooser.APPROVE_OPTION) {
-				    	    File selectedFile = fileChooser.getSelectedFile();
-				    	    //process log file
-				    	    String filename = selectedFile.getAbsolutePath();
-				    	    areDisplay.setText(filename+ " Loaded");
-				    	    restaurant = new PizzaRestaurant();
-				    	    try {
-								restaurant.processLog(filename);
-							} catch (CustomerException | PizzaException | LogHandlerException e1) {
-								
-							}
-				    	}
-				} else if (src==btnUnload) {
-					JButton btn = ((JButton) src);
-				      areDisplay.setText(btn.getText().trim());
-				} else if (src==btnSwitch) {
-					JOptionPane.showMessageDialog(this,"A Warning Message","Wiring Class: Warning",JOptionPane.WARNING_MESSAGE);
-				} else if (src==btnInfo) {
-					areDisplay.setText(String.format("%12s %6s %6s %6s %6s","Type","Qty","Price","Cost","Profit\n"));
-					String line;
-					Pizza currentPizza;
-					
-					for(int i = 0;i < restaurant.getNumPizzaOrders(); i++){
-						try {
+		Object src=e.getSource(); 
+  		//Consider the alternatives - not all active at once. 
+		if (src== btnLoad){
+			JButton btn = ((JButton) src);
+			JFileChooser fileChooser = new JFileChooser();
+			fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
+			int result = fileChooser.showOpenDialog(btn);
+			if (result == JFileChooser.APPROVE_OPTION) {
+				File selectedFile = fileChooser.getSelectedFile();
+				//process log file
+				String filename = selectedFile.getAbsolutePath();
+				restaurant = new PizzaRestaurant();
+				try {
+					restaurant.processLog(filename);
+					infoLoaded = true;
+					areDisplay.setText(filename+ " Loaded");
+					} catch (CustomerException | PizzaException | LogHandlerException e1) {
+						JOptionPane.showMessageDialog(this,"Failed to load: " + filename + "\n" + e1.toString(),"A Warning Message",JOptionPane.ERROR_MESSAGE);
+					}
+			}
+		} else if (src==btnReset) {
+			restaurant.resetDetails();
+			areDisplay.setText("");
+			infoLoaded = false;
+		} else if (src==btnSwitch) {
+			//TODO
+		} else if (src==btnInfo && infoLoaded) {
+			areDisplay.setText(String.format("%-12s %-4s %-6s %-6s %-6s","Type","Qty","Price","Cost","Profit\n"));
+			try {
+				for(int i = 0;i < restaurant.getNumPizzaOrders(); i++){
 							currentPizza = restaurant.getPizzaByIndex(i);
-							
-							line = String.format("%12s %6d %6.2f %6.2f %6.2f", currentPizza.getPizzaType(),currentPizza.getQuantity(), 
+							line = String.format("%-12s %-4d %-6.2f %-6.2f %-6.2f", currentPizza.getPizzaType(),currentPizza.getQuantity(), 
 									currentPizza.getOrderPrice(),currentPizza.getOrderCost(), 
 									currentPizza.getOrderProfit());
-							/*
-							 * line = String.format(format, currentPizza.getPizzaType(),Integer.toString(currentPizza.getQuantity()), 
-									Double.toString(currentPizza.getOrderPrice()),Double.toString(currentPizza.getOrderCost()), 
-									Double.toString(currentPizza.getOrderProfit()));
-							 */
 							areDisplay.append(line + "\n");
-			
-						} catch (PizzaException e1) {
-							e1.printStackTrace();
-						}
-						
-					}
 				}
+			} catch (PizzaException e1) {
+				JOptionPane.showMessageDialog(this,e1.toString(),"A Warning Message",JOptionPane.ERROR_MESSAGE);
+			}
+		}
 	}
-	
 
 }
