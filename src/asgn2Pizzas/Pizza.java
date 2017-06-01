@@ -35,7 +35,7 @@ public abstract class Pizza  {
 	private int quantity;
 	private double price;
 	private double costPerPizza;
-	private PizzaTopping toppingsList[]; //= new PizzaTopping[]{}; //Is specified in concrete classes
+	private PizzaTopping toppingsList[];
 	public Pizza(int quantity, LocalTime orderTime, LocalTime deliveryTime, String type, double price) throws PizzaException{
 		//Check quantity is between 1 and 10
 		if ( quantity < 1 || quantity > 10){
@@ -57,16 +57,17 @@ public abstract class Pizza  {
 		if (deliveryTime.isAfter(orderTime.plusMinutes(10).plusHours(1))){
 			throw new PizzaException("Pizza thrown out.");
 		}
+		//Setup topping depending on the type of pizza
 		if(type.equals("Vegetarian")){
 			toppingsList = new PizzaTopping[]{PizzaTopping.TOMATO, PizzaTopping.CHEESE, PizzaTopping.EGGPLANT, PizzaTopping.MUSHROOM, PizzaTopping.CAPSICUM};
 		} else if (type.equals("Meat Lovers")){
-			
 			toppingsList = new PizzaTopping[]{PizzaTopping.TOMATO, PizzaTopping.CHEESE};
 		} else if(type.equals("Margherita")){
 			toppingsList = new PizzaTopping[]{PizzaTopping.TOMATO, PizzaTopping.CHEESE, PizzaTopping.BACON, PizzaTopping.PEPPERONI,PizzaTopping.SALAMI};
 		} else {
 			throw new PizzaException(type + "is not a validetype of Pizza.");
 		}
+		
 		this.type = type;
 		this.quantity = quantity;
 		this.price = price;
@@ -101,7 +102,6 @@ public abstract class Pizza  {
 	 * @return The amount that an individual pizza is sold to the customer.
 	 */
 	public final double getPricePerPizza(){
-		// TO DO
 		return price;
 	}
 
@@ -110,7 +110,6 @@ public abstract class Pizza  {
 	 * @return The amount that the entire order costs to make, taking into account the type and quantity of pizzas. 
 	 */
 	public final double getOrderCost(){
-		// TO DO
 		return costPerPizza*quantity;
 	}
 	
@@ -119,7 +118,6 @@ public abstract class Pizza  {
 	 * @return The amount that the entire order is sold to the customer, taking into account the type and quantity of pizzas. 
 	 */
 	public final double getOrderPrice(){
-		// TO DO
 		return price*quantity;
 	}
 	
@@ -129,7 +127,6 @@ public abstract class Pizza  {
 	 * @return  Returns the profit made by the restaurant on the order which is the order price minus the order cost.
 	 */
 	public final double getOrderProfit(){
-		// TO DO
 		return (price - costPerPizza)*quantity;
 	}
 	

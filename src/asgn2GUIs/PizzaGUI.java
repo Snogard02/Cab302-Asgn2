@@ -190,8 +190,7 @@ public class PizzaGUI extends javax.swing.JFrame implements Runnable, ActionList
 				} else if (src==btnSwitch) {
 					JOptionPane.showMessageDialog(this,"A Warning Message","Wiring Class: Warning",JOptionPane.WARNING_MESSAGE);
 				} else if (src==btnInfo) {
-					String format = "%12s %6s %6s %6s %6s";
-					areDisplay.setText(String.format(format,"Type","Qty","Price","Cost","Profit\n"));
+					areDisplay.setText(String.format("%12s %6s %6s %6s %6s","Type","Qty","Price","Cost","Profit\n"));
 					String line;
 					Pizza currentPizza;
 					
@@ -199,9 +198,14 @@ public class PizzaGUI extends javax.swing.JFrame implements Runnable, ActionList
 						try {
 							currentPizza = restaurant.getPizzaByIndex(i);
 							
-							line = String.format(format, currentPizza.getPizzaType(),Integer.toString(currentPizza.getQuantity()), 
+							line = String.format("%12s %6d %6.2f %6.2f %6.2f", currentPizza.getPizzaType(),currentPizza.getQuantity(), 
+									currentPizza.getOrderPrice(),currentPizza.getOrderCost(), 
+									currentPizza.getOrderProfit());
+							/*
+							 * line = String.format(format, currentPizza.getPizzaType(),Integer.toString(currentPizza.getQuantity()), 
 									Double.toString(currentPizza.getOrderPrice()),Double.toString(currentPizza.getOrderCost()), 
 									Double.toString(currentPizza.getOrderProfit()));
+							 */
 							areDisplay.append(line + "\n");
 			
 						} catch (PizzaException e1) {
