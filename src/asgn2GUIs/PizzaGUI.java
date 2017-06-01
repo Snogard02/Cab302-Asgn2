@@ -44,7 +44,7 @@ public class PizzaGUI extends javax.swing.JFrame implements Runnable, ActionList
 	
 	private PizzaRestaurant restaurant;
 	
-	private JPanel pnlOne;
+	private JPanel pnlBase;
 	private JPanel pnlTwo;
 	private JPanel pnlFour;
 	private JPanel pnlFive;
@@ -54,8 +54,8 @@ public class PizzaGUI extends javax.swing.JFrame implements Runnable, ActionList
 	private JButton btnInfo;
 	private JButton btnCalc;
 	private JPanel pnlBtn;
-	
-	private JTextArea areDisplay; 
+	private JTextArea pizzaDisplay; 
+	private JTextArea customerDisplay; 
 	private JScrollPane scrollDisplay;
 	
 	/**
@@ -70,30 +70,28 @@ public class PizzaGUI extends javax.swing.JFrame implements Runnable, ActionList
 	    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	    setLayout(new BorderLayout());
 	    
-	    pnlOne = createPanel(Color.WHITE);
-	    pnlTwo = createPanel(Color.LIGHT_GRAY);
+	    pnlBase = createPanel(Color.WHITE);
 	    pnlBtn = createPanel(Color.LIGHT_GRAY);
-	    pnlFour = createPanel(Color.LIGHT_GRAY);
-	    pnlFive = createPanel(Color.LIGHT_GRAY);
+
 	    
 	    btnLoad = createButton("Load");
 	    btnReset = createButton("Reset");
 	    btnInfo = createButton("Display Information");
 	    btnCalc = createButton("Display Calculation");
 	    
-	    areDisplay = createTextArea();
-	    scrollDisplay = createScroll(areDisplay);
+	    pizzaDisplay = createTextArea();
+	    customerDisplay = createTextArea();
 	    
-	    pnlOne.setLayout(new BorderLayout());
-	    pnlOne.add(scrollDisplay, BorderLayout.CENTER);
+	    scrollDisplay = createScroll(pnlBase);
+	    
+	    pnlBase.setLayout(new GridLayout(0,2));
+	    pnlBase.add(pizzaDisplay);
+	    pnlBase.add(customerDisplay);
 	    
 	    layoutButtonPanel(); 
 	    
-	    this.getContentPane().add(pnlOne,BorderLayout.CENTER);
-	    this.getContentPane().add(pnlTwo,BorderLayout.SOUTH);
+	    this.getContentPane().add(scrollDisplay,BorderLayout.CENTER);
 	    this.getContentPane().add(pnlBtn,BorderLayout.NORTH);
-	    this.getContentPane().add(pnlFour,BorderLayout.EAST);
-	    this.getContentPane().add(pnlFive,BorderLayout.WEST);
 	    
 	    repaint(); 
 	    this.setVisible(true);
@@ -116,12 +114,11 @@ public class PizzaGUI extends javax.swing.JFrame implements Runnable, ActionList
 		jta.setEditable(false);
 		jta.setLineWrap(true);
 		jta.setFont(new Font(Font.MONOSPACED,Font.PLAIN,12));
-		
-		jta.setBorder(BorderFactory.createEtchedBorder());
 		return jta;
 	}
-	private JScrollPane createScroll(JTextArea jta){
-		JScrollPane jsp = new JScrollPane(jta);
+	private JScrollPane createScroll(JPanel jp){
+		JScrollPane jsp = new JScrollPane(jp);
+		jsp.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 		return jsp;
 	}
 	
@@ -181,27 +178,27 @@ public class PizzaGUI extends javax.swing.JFrame implements Runnable, ActionList
 				try {
 					restaurant.processLog(filename);
 					infoLoaded = true;
-					areDisplay.setText(filename+ " Loaded");
+					pizzaDisplay.setText(filename+ " Loaded");
 					} catch (CustomerException | PizzaException | LogHandlerException e1) {
 						JOptionPane.showMessageDialog(this,"Failed to load: " + filename + "\n" + e1.toString(),"A Warning Message",JOptionPane.ERROR_MESSAGE);
 					}
 			}
 		} else if (src==btnReset) {
 			restaurant.resetDetails();
-			areDisplay.setText("");
+			pizzaDisplay.setText("");
 			infoLoaded = false;
 		} else if (src==btnCalc) {
 			//TODO
 			
 		} else if (src==btnInfo && infoLoaded) {
-			areDisplay.setText(String.format("%-12s %-4s %-6s %-6s %-6s","Type","Qty","Price","Cost","Profit\n"));
+			pizzaDisplay.setText(String.format("Pizza\n%-12s %-4s %-6s %-6s %-6s","Type","Qty","Price","Cost","Profit\n"));
 			try {
 				for(int i = 0;i < restaurant.getNumPizzaOrders(); i++){
 							currentPizza = restaurant.getPizzaByIndex(i);
 							line = String.format("%-12s %-4d %-6.2f %-6.2f %-6.2f", currentPizza.getPizzaType(),currentPizza.getQuantity(), 
 									currentPizza.getOrderPrice(),currentPizza.getOrderCost(), 
 									currentPizza.getOrderProfit());
-							areDisplay.append(line + "\n");
+							pizzaDisplay.append(line + "\n");
 				}
 			} catch (PizzaException e1) {
 				JOptionPane.showMessageDialog(this,e1.toString(),"A Warning Message",JOptionPane.ERROR_MESSAGE);

@@ -58,6 +58,7 @@ public class LogHandler {
 			}
 			reader.close();
 		} catch (Exception e){
+			//TODO:Wat?
 			throw new LogHandlerException(""+e);
 		}
 		return pizzaArray;	
