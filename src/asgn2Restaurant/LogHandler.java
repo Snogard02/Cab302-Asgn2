@@ -7,6 +7,12 @@ import asgn2Exceptions.CustomerException;
 import asgn2Exceptions.LogHandlerException;
 import asgn2Exceptions.PizzaException;
 import asgn2Pizzas.Pizza;
+import asgn2Pizzas.PizzaFactory;
+
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.time.LocalTime;
+import java.util.ArrayList;
 
 /**
  *
@@ -19,8 +25,6 @@ import asgn2Pizzas.Pizza;
  */
 public class LogHandler {
 	
-
-
 	/**
 	 * Returns an ArrayList of Customer objects from the information contained in the log file ordered as they appear in the log file.
 	 * @param filename The file name of the log file
@@ -30,7 +34,7 @@ public class LogHandler {
 	 * 
 	 */
 	public static ArrayList<Customer> populateCustomerDataset(String filename) throws CustomerException, LogHandlerException{
-		// TO DO
+		return null;
 	}		
 
 	/**
@@ -42,7 +46,21 @@ public class LogHandler {
 	 * 
 	 */
 	public static ArrayList<Pizza> populatePizzaDataset(String filename) throws PizzaException, LogHandlerException{
-		// TO DO
+		//String filePath = "../logs/"+filename;
+		ArrayList<Pizza> pizzaArray= new ArrayList<Pizza>();
+		BufferedReader reader;
+		String line;
+		
+		try{
+			reader = new BufferedReader(new FileReader(filename));
+			while((line = reader.readLine()) != null){
+				pizzaArray.add(createPizza(line));
+			}
+			reader.close();
+		} catch (Exception e){
+			throw new LogHandlerException(""+e);
+		}
+		return pizzaArray;	
 	}		
 
 	
@@ -56,6 +74,7 @@ public class LogHandler {
 	 */
 	public static Customer createCustomer(String line) throws CustomerException, LogHandlerException{
 		// TO DO
+		return null;
 	}
 	
 	/**
@@ -67,7 +86,9 @@ public class LogHandler {
 	 * @throws LogHandlerException - If there was a problem parsing the line from the log file.
 	 */
 	public static Pizza createPizza(String line) throws PizzaException, LogHandlerException{
-		// TO DO		
+		String[] data;
+		data = line.split(",");
+		return PizzaFactory.getPizza(data[7], Integer.parseInt(data[8]), LocalTime.parse(data[0]), LocalTime.parse(data[1]));
 	}
 
 }

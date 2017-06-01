@@ -4,9 +4,12 @@ import java.util.ArrayList;
 
 import asgn2Customers.Customer;
 import asgn2Pizzas.Pizza;
+import asgn2Exceptions.CustomerException;
+import asgn2Exceptions.LogHandlerException;
+import asgn2Exceptions.PizzaException;
 
 /**
- * This class acts as a ‘model’ of a pizza restaurant. It contains an ArrayList of Pizza objects and an ArrayList of  Customer objects.
+ * This class acts as a ï¿½modelï¿½ of a pizza restaurant. It contains an ArrayList of Pizza objects and an ArrayList of  Customer objects.
  *  It contains a method that can populate the ArrayLists,  several methods to retrieve information about the ArrayLists and 
  *  a method to reset the array list. Information about the x and y location of the restaurant and the time that first and last 
  *  orders are accepted are listed in Section 5 of the Assignment Specification. 
@@ -32,7 +35,7 @@ public class PizzaRestaurant {
 	 * 
 	 */
 	public PizzaRestaurant() {
-		// TO DO
+		resetDetails();
 	}
 
 	/**
@@ -51,7 +54,9 @@ public class PizzaRestaurant {
      *
 	 */
 	public boolean processLog(String filename) throws CustomerException, PizzaException, LogHandlerException{
-		// TO DO
+		this.pizzas = LogHandler.populatePizzaDataset(filename);
+		//this.customers = LogHandler.populateCustomerDataset(filename);
+		return true;
 	}
 
 	/**
@@ -61,7 +66,7 @@ public class PizzaRestaurant {
 	 * @throws CustomerException if index is invalid.
 	 */
 	public Customer getCustomerByIndex(int index) throws CustomerException{
-		// TO DO
+		return this.customers.get(index);
 	}
 	
 	/**
@@ -71,7 +76,7 @@ public class PizzaRestaurant {
 	 * @throws PizzaException if index is invalid.
 	 */	
 	public Pizza getPizzaByIndex(int index) throws PizzaException{
-		// TO DO
+		return this.pizzas.get(index);
 	}
 	
 	/**
@@ -81,7 +86,7 @@ public class PizzaRestaurant {
 	 * @return the number of objects contained in the pizzas field.
 	 */
 	public int getNumPizzaOrders(){
-		// TO DO
+		return this.pizzas.size();
 	}
 
 	/**
@@ -91,7 +96,7 @@ public class PizzaRestaurant {
 	 * @return the number of objects contained in the customers field.
 	 */
 	public int getNumCustomerOrders(){
-		// TO DO
+		return this.customers.size();
 	}
 
 			
@@ -103,6 +108,7 @@ public class PizzaRestaurant {
 	 */
 	public double getTotalDeliveryDistance(){
 		// TO DO
+		return 0;
 	}
 
 	/**
@@ -111,7 +117,11 @@ public class PizzaRestaurant {
 	 * @return the total profit for all of the Pizza objects in the pizzas field.
 	 */	
 	public double getTotalProfit(){
-		// TO DO
+		double profit = 0;
+		for(Pizza pizza: pizzas){
+			profit += pizza.getOrderProfit();
+		}
+		return profit;
 	}
 	
 	/**
@@ -121,7 +131,8 @@ public class PizzaRestaurant {
 	 * <P> POST:  The pizzas and customers fields are set to their initial empty states
 	 */
 	public void resetDetails(){
-		// TO DO
+		pizzas = new ArrayList<Pizza>();
+		customers = new ArrayList<Customer>();
 	}
 
 }

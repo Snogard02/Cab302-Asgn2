@@ -34,8 +34,9 @@ public class MargheritaPizza extends Pizza {
 	 * @throws PizzaException if supplied parameters are invalid 
 	 *
 	 */
+	
 	public MargheritaPizza(int quantity, LocalTime orderTime, LocalTime deliveryTime) throws PizzaException {
-		// TO DO
+		super(quantity,orderTime,deliveryTime,"Margherita",8);
 	}
 
 }

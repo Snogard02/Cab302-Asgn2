@@ -1,7 +1,7 @@
 package asgn2Pizzas;
 
 import java.time.LocalTime;
-
+import asgn2Exceptions.PizzaException;
 
 /**
  * An abstract class that represents pizzas sold at the Pizza Palace restaurant. 
@@ -31,8 +31,45 @@ public abstract class Pizza  {
 	 * @throws PizzaException if supplied parameters are invalid 
 	 * 
 	 */
+	private String type;
+	private int quantity;
+	private double price;
+	private double costPerPizza;
+	private PizzaTopping toppingsList[]; //= new PizzaTopping[]{}; //Is specified in concrete classes
 	public Pizza(int quantity, LocalTime orderTime, LocalTime deliveryTime, String type, double price) throws PizzaException{
-		// TO DO	
+		//Check quantity is between 1 and 10
+		if ( quantity < 1 || quantity > 10){
+			throw new PizzaException("Quantity: " + quantity + " is not valid.");
+		}
+		//Check if order was made during open hours
+		if (orderTime.isAfter(LocalTime.of(23, 00, 00))  || orderTime.isBefore(LocalTime.of(7, 00, 00))){
+			throw new PizzaException("Time: " + orderTime + " is outside open hours.");
+		}
+		//Check for delivery times before oder times
+		if (deliveryTime.isBefore(orderTime)){
+			throw new PizzaException("Can not delivery before order placed.");
+		}
+		//Check whether the delivery was made before the order was ready
+		if (deliveryTime.isBefore(orderTime.plusMinutes(10))){
+			throw new PizzaException("Order not ready in time for delivery.");
+		}
+		//Check if the pizza has not been delivered within the hour, and so thrown out
+		if (deliveryTime.isAfter(orderTime.plusMinutes(10).plusHours(1))){
+			throw new PizzaException("Pizza thrown out.");
+		}
+		if(type.equals("Vegetarian")){
+			toppingsList = new PizzaTopping[]{PizzaTopping.TOMATO, PizzaTopping.CHEESE, PizzaTopping.EGGPLANT, PizzaTopping.MUSHROOM, PizzaTopping.CAPSICUM};
+		} else if (type.equals("Meat Lovers")){
+			
+			toppingsList = new PizzaTopping[]{PizzaTopping.TOMATO, PizzaTopping.CHEESE};
+		} else if(type.equals("Margherita")){
+			toppingsList = new PizzaTopping[]{PizzaTopping.TOMATO, PizzaTopping.CHEESE, PizzaTopping.BACON, PizzaTopping.PEPPERONI,PizzaTopping.SALAMI};
+		} else {
+			throw new PizzaException(type + "is not a validetype of Pizza.");
+		}
+		this.type = type;
+		this.quantity = quantity;
+		this.price = price;
 	}
 
 	/**
@@ -42,7 +79,12 @@ public abstract class Pizza  {
 	 * <P> POST: The cost field is set to sum of the Pizzas's toppings
 	 */
 	public final void calculateCostPerPizza(){
-		// TO DO
+		costPerPizza = 0;
+		for(PizzaTopping toppingCheck: toppingsList){
+			if(containsTopping(toppingCheck)){
+				costPerPizza += toppingCheck.getCost();
+			}
+		}
 	}
 	
 	/**
@@ -50,7 +92,7 @@ public abstract class Pizza  {
 	 * @return The amount that an individual pizza costs to make.
 	 */
 	public final double getCostPerPizza(){
-		// TO DO
+		return costPerPizza;
 	}
 
 	/**
@@ -59,6 +101,7 @@ public abstract class Pizza  {
 	 */
 	public final double getPricePerPizza(){
 		// TO DO
+		return price;
 	}
 
 	/**
@@ -67,6 +110,7 @@ public abstract class Pizza  {
 	 */
 	public final double getOrderCost(){
 		// TO DO
+		return costPerPizza*quantity;
 	}
 	
 	/**
@@ -75,6 +119,7 @@ public abstract class Pizza  {
 	 */
 	public final double getOrderPrice(){
 		// TO DO
+		return price*quantity;
 	}
 	
 	
@@ -84,6 +129,7 @@ public abstract class Pizza  {
 	 */
 	public final double getOrderProfit(){
 		// TO DO
+		return (price - costPerPizza)*quantity;
 	}
 	
 
@@ -93,7 +139,11 @@ public abstract class Pizza  {
 	 * @return Returns  true if the instance of Pizza contains the specified topping and false otherwise.
 	 */
 	public final boolean containsTopping(PizzaTopping topping){
-		// TO DO
+		for(PizzaTopping toppingCheck: toppingsList){
+			if(toppingCheck.equals(topping))
+				return true;
+		}
+		return false;
 	}
 	
 	/**
@@ -101,7 +151,7 @@ public abstract class Pizza  {
 	 * @return the quantity of pizzas ordered. 
 	 */
 	public final int getQuantity(){
-		// TO DO
+		return quantity;
 	}
 
 	/**
@@ -110,7 +160,7 @@ public abstract class Pizza  {
 	 * @return A human understandable description of the Pizza's type.
 	 */
 	public final String getPizzaType(){
-		// TO DO
+		return type;
 	}
 
 
