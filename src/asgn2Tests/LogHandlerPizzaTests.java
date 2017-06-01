@@ -15,8 +15,9 @@ import asgn2Restaurant.LogHandler;
 * 
 */
 public class LogHandlerPizzaTests {
-	@Test
-	public void full_test() throws PizzaException, LogHandlerException{
-		LogHandler.populatePizzaDataset("/home/josh/git/asgn2/logs/20170101.txt");
+	@Test (expected = LogHandlerException.class)
+	public void nonExistantFile() throws PizzaException, LogHandlerException{
+		LogHandler.populatePizzaDataset("asdasdf");
 	}
+	//make a bunch of faulty log files to test whether PizzaExceptions get pased correctly
 }

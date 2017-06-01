@@ -187,11 +187,12 @@ public class PizzaGUI extends javax.swing.JFrame implements Runnable, ActionList
 			restaurant.resetDetails();
 			pizzaDisplay.setText("");
 			infoLoaded = false;
-		} else if (src==btnCalc) {
-			//TODO
+		} else if (src==btnCalc && infoLoaded) {
+			pizzaDisplay.setText(String.format("Total profits: $%.2f",restaurant.getTotalProfit()));
 			
 		} else if (src==btnInfo && infoLoaded) {
 			pizzaDisplay.setText(String.format("Pizza\n%-12s %-4s %-6s %-6s %-6s","Type","Qty","Price","Cost","Profit\n"));
+			customerDisplay.setText(String.format("Customers\n%-12s %-10s %-8s %-4s %-4s","Name","Number","Type","Loc","Dist\n"));
 			try {
 				for(int i = 0;i < restaurant.getNumPizzaOrders(); i++){
 							currentPizza = restaurant.getPizzaByIndex(i);
@@ -201,7 +202,7 @@ public class PizzaGUI extends javax.swing.JFrame implements Runnable, ActionList
 							pizzaDisplay.append(line + "\n");
 				}
 			} catch (PizzaException e1) {
-				JOptionPane.showMessageDialog(this,e1.toString(),"A Warning Message",JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(this,"Failed to display due to:/n" + e1.toString(),"A Warning Message",JOptionPane.ERROR_MESSAGE);
 			}
 		}
 	}

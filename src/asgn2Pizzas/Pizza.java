@@ -45,7 +45,7 @@ public abstract class Pizza  {
 		if (orderTime.isAfter(LocalTime.of(23, 00, 00))  || orderTime.isBefore(LocalTime.of(7, 00, 00))){
 			throw new PizzaException("Time: " + orderTime + " is outside open hours.");
 		}
-		//Check for delivery times before oder times
+		//Check for delivery times before order times
 		if (deliveryTime.isBefore(orderTime)){
 			throw new PizzaException("Can not delivery before order placed.");
 		}
@@ -64,8 +64,6 @@ public abstract class Pizza  {
 			toppingsList = new PizzaTopping[]{PizzaTopping.TOMATO, PizzaTopping.CHEESE};
 		} else if(type.equals("Margherita")){
 			toppingsList = new PizzaTopping[]{PizzaTopping.TOMATO, PizzaTopping.CHEESE, PizzaTopping.BACON, PizzaTopping.PEPPERONI,PizzaTopping.SALAMI};
-		} else {
-			throw new PizzaException(type + "is not a validetype of Pizza.");
 		}
 		
 		this.type = type;

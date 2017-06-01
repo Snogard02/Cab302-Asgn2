@@ -11,6 +11,7 @@ import asgn2Pizzas.PizzaFactory;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.io.IOException;
 import java.time.LocalTime;
 import java.util.ArrayList;
 
@@ -46,20 +47,17 @@ public class LogHandler {
 	 * 
 	 */
 	public static ArrayList<Pizza> populatePizzaDataset(String filename) throws PizzaException, LogHandlerException{
-		//String filePath = "../logs/"+filename;
 		ArrayList<Pizza> pizzaArray= new ArrayList<Pizza>();
 		BufferedReader reader;
 		String line;
-		
 		try{
 			reader = new BufferedReader(new FileReader(filename));
 			while((line = reader.readLine()) != null){
 				pizzaArray.add(createPizza(line));
 			}
 			reader.close();
-		} catch (Exception e){
-			//TODO:Wat?
-			throw new LogHandlerException(""+e);
+		} catch (IOException e){
+			throw new LogHandlerException("Can not read: " + filename);
 		}
 		return pizzaArray;	
 	}		
