@@ -54,7 +54,12 @@ public class PizzaRestaurant {
      *
 	 */
 	public boolean processLog(String filename) throws CustomerException, PizzaException, LogHandlerException{
-		this.pizzas = LogHandler.populatePizzaDataset(filename);
+		try {
+			this.pizzas = LogHandler.populatePizzaDataset(filename);
+		} catch (PizzaException pe){
+			return false;
+		}
+		
 		//this.customers = LogHandler.populateCustomerDataset(filename);
 		return true;
 	}

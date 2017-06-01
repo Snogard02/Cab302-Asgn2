@@ -89,7 +89,10 @@ public class PizzaGUI extends javax.swing.JFrame implements Runnable, ActionList
 	    pnlBase.add(customerDisplay);
 	    
 	    layoutButtonPanel(); 
-	    
+	    btnCalc.setEnabled(false);
+		btnInfo.setEnabled(false);
+		restaurant = new PizzaRestaurant();
+		
 	    this.getContentPane().add(scrollDisplay,BorderLayout.CENTER);
 	    this.getContentPane().add(pnlBtn,BorderLayout.NORTH);
 	    
@@ -174,11 +177,12 @@ public class PizzaGUI extends javax.swing.JFrame implements Runnable, ActionList
 				File selectedFile = fileChooser.getSelectedFile();
 				//process log file
 				String filename = selectedFile.getAbsolutePath();
-				restaurant = new PizzaRestaurant();
 				try {
 					restaurant.processLog(filename);
 					infoLoaded = true;
 					pizzaDisplay.setText(filename+ " Loaded");
+					btnCalc.setEnabled(true);
+					btnInfo.setEnabled(true);
 					} catch (CustomerException | PizzaException | LogHandlerException e1) {
 						JOptionPane.showMessageDialog(this,"Failed to load: " + filename + "\n" + e1.toString(),"A Warning Message",JOptionPane.ERROR_MESSAGE);
 					}
@@ -186,9 +190,13 @@ public class PizzaGUI extends javax.swing.JFrame implements Runnable, ActionList
 		} else if (src==btnReset) {
 			restaurant.resetDetails();
 			pizzaDisplay.setText("");
+			customerDisplay.setText("");
+			btnCalc.setEnabled(false);
+			btnInfo.setEnabled(false);
 			infoLoaded = false;
 		} else if (src==btnCalc && infoLoaded) {
 			pizzaDisplay.setText(String.format("Total profits: $%.2f",restaurant.getTotalProfit()));
+			customerDisplay.setText(String.format("Total distance: %.2f Km",restaurant.getTotalDeliveryDistance()));
 			
 		} else if (src==btnInfo && infoLoaded) {
 			pizzaDisplay.setText(String.format("Pizza\n%-12s %-4s %-6s %-6s %-6s","Type","Qty","Price","Cost","Profit\n"));

@@ -13,6 +13,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.time.LocalTime;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
 /**
@@ -87,7 +88,14 @@ public class LogHandler {
 	public static Pizza createPizza(String line) throws PizzaException, LogHandlerException{
 		String[] data;
 		data = line.split(",");
-		return PizzaFactory.getPizza(data[7], Integer.parseInt(data[8]), LocalTime.parse(data[0]), LocalTime.parse(data[1]));
+		if(data.length != 9){
+			throw new LogHandlerException("Input data is wrong dimensions");
+		}
+		try{
+			return PizzaFactory.getPizza(data[7], Integer.parseInt(data[8]), LocalTime.parse(data[0]), LocalTime.parse(data[1]));
+		} catch (NumberFormatException | DateTimeParseException e){
+			throw new LogHandlerException("Wrong data format");
+		}
 	}
 
 }
