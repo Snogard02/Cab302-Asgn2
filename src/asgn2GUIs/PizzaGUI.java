@@ -71,7 +71,6 @@ public class PizzaGUI extends javax.swing.JFrame implements Runnable, ActionList
 	    
 	    pnlBase = createPanel(Color.WHITE);
 	    pnlBtn = createPanel(Color.LIGHT_GRAY);
-
 	    
 	    btnLoad = createButton("Load");
 	    btnReset = createButton("Reset");
@@ -194,9 +193,11 @@ public class PizzaGUI extends javax.swing.JFrame implements Runnable, ActionList
 	Pizza currentPizza;
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		//A try-Catch around all events, to make sure all exceptions are caught and displayed
+		try {
 		//Get event source 
 		Object src=e.getSource(); 
-		try {
+		
   		//On clicking the Load button
 		if (src== btnLoad){
 			JButton btn = ((JButton) src);
@@ -229,9 +230,10 @@ public class PizzaGUI extends javax.swing.JFrame implements Runnable, ActionList
 			customerDisplay.setText(String.format("Total distance: %.2f Km",restaurant.getTotalDeliveryDistance()));
 		//On clicking the Information button
 		} else if (src==btnInfo) {
-			pizzaDisplay.setText(String.format("Pizza\n%-12s %-4s %-7s %-7s %-7s","Type","Qty","Price"," Cost","  Profit\n"));
-			customerDisplay.setText(String.format("Customers\n%-12s %-10s %-8s %-4s %-4s","Name","Number","Type","Loc","Dist\n"));
-			
+			pizzaDisplay.setText(String.format("Pizza\n%-12s %-4s %-7s %-7s %-7s",
+					"Type","Qty","Price"," Cost","  Profit\n"));
+			customerDisplay.setText(String.format("Customers\n%-12s %-10s %-8s %-4s %-4s",
+					"Name","Number","Type","Loc","Dist\n"));
 				for(int i = 0;i < restaurant.getNumPizzaOrders(); i++){
 							currentPizza = restaurant.getPizzaByIndex(i);
 							line = String.format("%-12s %-4d $%-7.2f $%-7.2f $%-7.2f", currentPizza.getPizzaType(),currentPizza.getQuantity(), 
@@ -242,7 +244,6 @@ public class PizzaGUI extends javax.swing.JFrame implements Runnable, ActionList
 			
 		} //Catch and Display the exceptions as Error Message to the user
 		} catch (CustomerException | PizzaException | LogHandlerException e1) {
-			
 			JOptionPane.showMessageDialog(this,e1.toString(),"Error!",JOptionPane.ERROR_MESSAGE);
 		}
 	}

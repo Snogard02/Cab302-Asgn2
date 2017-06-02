@@ -26,7 +26,8 @@ import java.util.ArrayList;
  *
  */
 public class LogHandler {
-	
+	public static final int DATALENGTH = 9;
+	public static final String SEPERATOR = ",";
 	/**
 	 * Returns an ArrayList of Customer objects from the information contained in the log file ordered as they appear in the log file.
 	 * @param filename The file name of the log file
@@ -87,10 +88,9 @@ public class LogHandler {
 	 * @throws LogHandlerException - If there was a problem parsing the line from the log file.
 	 */
 	public static Pizza createPizza(String line) throws PizzaException, LogHandlerException{
-		int DATALENGTH = 9;
 		String[] data;
-		data = line.split(",");
-		if(data.length != DATALENGTH){//TODO: Remove magic numbers
+		data = line.split(SEPERATOR);
+		if(data.length != DATALENGTH){
 			throw new LogHandlerException("Input data is wrong dimensions");
 		}
 		try{
@@ -99,5 +99,4 @@ public class LogHandler {
 			throw new LogHandlerException("Wrong data format");
 		}
 	}
-
 }
