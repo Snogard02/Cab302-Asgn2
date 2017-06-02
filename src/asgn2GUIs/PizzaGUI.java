@@ -45,10 +45,6 @@ public class PizzaGUI extends javax.swing.JFrame implements Runnable, ActionList
 	private PizzaRestaurant restaurant;
 	
 	private JPanel pnlBase;
-	private JPanel pnlTwo;
-	private JPanel pnlFour;
-	private JPanel pnlFive;
-	
 	private JButton btnLoad;
 	private JButton btnReset;
 	private JButton btnInfo;
@@ -65,6 +61,9 @@ public class PizzaGUI extends javax.swing.JFrame implements Runnable, ActionList
 	public PizzaGUI(String title) {
 		super(title);
 	}
+	/**
+	 * Creates the GUI
+	 */
 	private void createGUI() {
 		setSize(WIDTH, HEIGHT);
 	    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -99,19 +98,30 @@ public class PizzaGUI extends javax.swing.JFrame implements Runnable, ActionList
 	    repaint(); 
 	    this.setVisible(true);
 	}
-	
+	/**
+	 * 
+	 * @param Color of the panel
+	 * @return A JPanel object of desired color
+	 */
 	private JPanel createPanel(Color c) {
 		JPanel jp = new JPanel();
 		jp.setBackground(c);
 		return jp;
 	}
-	
+	/**
+	 * 
+	 * @param The string displayed on the button
+	 * @return A JButton object with desired label
+	 */
 	private JButton createButton(String str) {
 		JButton jb = new JButton(str); 
 		jb.addActionListener(this);
 		return jb; 
 	}
-	
+	/**
+	 * 
+	 * @return Jtext area
+	 */
 	private JTextArea createTextArea() {
 		JTextArea jta = new JTextArea(); 
 		jta.setEditable(false);
@@ -119,12 +129,20 @@ public class PizzaGUI extends javax.swing.JFrame implements Runnable, ActionList
 		jta.setFont(new Font(Font.MONOSPACED,Font.PLAIN,12));
 		return jta;
 	}
+	
+	/**
+	 * 
+	 * @param A JPanel object, to be contained withing the JScrollPane
+	 * @return A JScrollPane object
+	 */
 	private JScrollPane createScroll(JPanel jp){
 		JScrollPane jsp = new JScrollPane(jp);
 		jsp.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 		return jsp;
 	}
-	
+	/**
+	 * Setups a grid and adds all of the button objects to the north border panel
+	 */
 	private void layoutButtonPanel() {
 		GridBagLayout layout = new GridBagLayout();
 	    pnlBtn.setLayout(layout);
@@ -135,8 +153,8 @@ public class PizzaGUI extends javax.swing.JFrame implements Runnable, ActionList
 	    //Defaults
 	    constraints.fill = GridBagConstraints.NONE;
 	    constraints.anchor = GridBagConstraints.CENTER;
-	    constraints.weightx = 50;
-	    constraints.weighty = 50;
+	    constraints.weightx = 100;
+	    constraints.weighty = 100;
 	    
 	    addToPanel(pnlBtn, btnLoad,constraints,	 0,0,1,1); 
 	    addToPanel(pnlBtn, btnReset,constraints,1,0,1,1); 
@@ -144,6 +162,18 @@ public class PizzaGUI extends javax.swing.JFrame implements Runnable, ActionList
 	    addToPanel(pnlBtn, btnCalc,constraints,3,0,1,1); 	
 	}
 	
+	/**
+     * 
+     * A convenience method to add a component to given grid bag
+     * layout locations. Code due to Cay Horstmann 
+     *
+     * @param c the component to add
+     * @param constraints the grid bag constraints to use
+     * @param x the x grid position
+     * @param y the y grid position
+     * @param w the grid width
+     * @param h the grid height
+     */
 	private void addToPanel(JPanel jp,Component c, GridBagConstraints constraints, int x, int y, int w, int h) {  
 	      constraints.gridx = x;
 	      constraints.gridy = y;
@@ -162,56 +192,58 @@ public class PizzaGUI extends javax.swing.JFrame implements Runnable, ActionList
 	}
 	String line;
 	Pizza currentPizza;
-	Boolean infoLoaded = false;
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		//Get event source 
 		Object src=e.getSource(); 
-  		//Consider the alternatives - not all active at once. 
+		try {
+  		//On clicking the Load button
 		if (src== btnLoad){
 			JButton btn = ((JButton) src);
+			//Use JFileChooser to allow user to select Log file to open
 			JFileChooser fileChooser = new JFileChooser();
 			fileChooser.setCurrentDirectory(new File(System.getProperty("user.home")));
 			int result = fileChooser.showOpenDialog(btn);
 			if (result == JFileChooser.APPROVE_OPTION) {
 				File selectedFile = fileChooser.getSelectedFile();
-				//process log file
 				String filename = selectedFile.getAbsolutePath();
-				try {
-					restaurant.processLog(filename);
-					infoLoaded = true;
-					pizzaDisplay.setText(filename+ " Loaded");
-					btnCalc.setEnabled(true);
-					btnInfo.setEnabled(true);
-					} catch (CustomerException | PizzaException | LogHandlerException e1) {
-						JOptionPane.showMessageDialog(this,"Failed to load: " + filename + "\n" + e1.toString(),"A Warning Message",JOptionPane.ERROR_MESSAGE);
-					}
+				//Process Log file
+				restaurant.processLog(filename);
+				pizzaDisplay.setText(filename+ " Loaded");
+				customerDisplay.setText(filename+ " Loaded");
+				//If Processing complete, enable to Information and Calculation buttons
+				btnCalc.setEnabled(true);
+				btnInfo.setEnabled(true);
+					
 			}
+		//On clicking the Reset button
 		} else if (src==btnReset) {
 			restaurant.resetDetails();
 			pizzaDisplay.setText("");
 			customerDisplay.setText("");
 			btnCalc.setEnabled(false);
 			btnInfo.setEnabled(false);
-			infoLoaded = false;
-		} else if (src==btnCalc && infoLoaded) {
+		//On clicking the Calculation button
+		} else if (src==btnCalc) {
 			pizzaDisplay.setText(String.format("Total profits: $%.2f",restaurant.getTotalProfit()));
 			customerDisplay.setText(String.format("Total distance: %.2f Km",restaurant.getTotalDeliveryDistance()));
-			
-		} else if (src==btnInfo && infoLoaded) {
-			pizzaDisplay.setText(String.format("Pizza\n%-12s %-4s %-6s %-6s %-6s","Type","Qty","Price","Cost","Profit\n"));
+		//On clicking the Information button
+		} else if (src==btnInfo) {
+			pizzaDisplay.setText(String.format("Pizza\n%-12s %-4s %-7s %-7s %-7s","Type","Qty","Price"," Cost","  Profit\n"));
 			customerDisplay.setText(String.format("Customers\n%-12s %-10s %-8s %-4s %-4s","Name","Number","Type","Loc","Dist\n"));
-			try {
+			
 				for(int i = 0;i < restaurant.getNumPizzaOrders(); i++){
 							currentPizza = restaurant.getPizzaByIndex(i);
-							line = String.format("%-12s %-4d %-6.2f %-6.2f %-6.2f", currentPizza.getPizzaType(),currentPizza.getQuantity(), 
+							line = String.format("%-12s %-4d $%-7.2f $%-7.2f $%-7.2f", currentPizza.getPizzaType(),currentPizza.getQuantity(), 
 									currentPizza.getOrderPrice(),currentPizza.getOrderCost(), 
 									currentPizza.getOrderProfit());
 							pizzaDisplay.append(line + "\n");
 				}
-			} catch (PizzaException e1) {
-				JOptionPane.showMessageDialog(this,"Failed to display due to:/n" + e1.toString(),"A Warning Message",JOptionPane.ERROR_MESSAGE);
-			}
+			
+		} //Catch and Display the exceptions as Error Message to the user
+		} catch (CustomerException | PizzaException | LogHandlerException e1) {
+			
+			JOptionPane.showMessageDialog(this,e1.toString(),"Error!",JOptionPane.ERROR_MESSAGE);
 		}
 	}
 

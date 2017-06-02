@@ -19,5 +19,24 @@ public class LogHandlerPizzaTests {
 	public void nonExistantFile() throws PizzaException, LogHandlerException{
 		LogHandler.populatePizzaDataset("asdasdf");
 	}
-	//make a bunch of faulty log files to test whether PizzaExceptions get pased correctly
+	@Test (expected = LogHandlerException.class)
+	public void fileError_wrongFormat_date() throws PizzaException, LogHandlerException{
+		LogHandler.populatePizzaDataset(".//logs/fileError_wrongFormat_date.txt");
+	}
+	@Test (expected = LogHandlerException.class)
+	public void fileError_wrongFormat_quantity() throws PizzaException, LogHandlerException{
+		LogHandler.populatePizzaDataset(".//logs/fileError_wrongFormat_quantity.txt");
+	}
+	@Test (expected = PizzaException.class)
+	public void fileError_wrongFormat_pizzaCode() throws PizzaException, LogHandlerException{
+		LogHandler.populatePizzaDataset(".//logs/fileError_wrongFormat_pizzaCode.txt");
+	}
+	@Test (expected = PizzaException.class)
+	public void pizzaError_deliveredBerforeMade() throws PizzaException, LogHandlerException{
+		LogHandler.populatePizzaDataset(".//logs/pizzaError_deliveredBerforeMade.txt");
+	}
+	@Test (expected = PizzaException.class)
+	public void pizzaError_thrownOut() throws PizzaException, LogHandlerException{
+		LogHandler.populatePizzaDataset(".//logs/pizzaError_thrownOut.txt");
+	}
 }

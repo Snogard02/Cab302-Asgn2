@@ -36,6 +36,7 @@ public class LogHandler {
 	 * 
 	 */
 	public static ArrayList<Customer> populateCustomerDataset(String filename) throws CustomerException, LogHandlerException{
+		//TODO
 		return null;
 	}		
 
@@ -86,9 +87,10 @@ public class LogHandler {
 	 * @throws LogHandlerException - If there was a problem parsing the line from the log file.
 	 */
 	public static Pizza createPizza(String line) throws PizzaException, LogHandlerException{
+		int DATALENGTH = 9;
 		String[] data;
 		data = line.split(",");
-		if(data.length != 9){
+		if(data.length != DATALENGTH){//TODO: Remove magic numbers
 			throw new LogHandlerException("Input data is wrong dimensions");
 		}
 		try{
