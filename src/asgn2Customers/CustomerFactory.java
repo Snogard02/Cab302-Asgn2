@@ -2,6 +2,10 @@ package asgn2Customers;
 
 
 import asgn2Exceptions.CustomerException;
+import asgn2Exceptions.PizzaException;
+import asgn2Pizzas.MargheritaPizza;
+import asgn2Pizzas.MeatLoversPizza;
+import asgn2Pizzas.VegetarianPizza;
 
 /**
  * A class that instantiates the subclasses of asgn2Customers.Customer using the Factory Method pattern. 
@@ -28,6 +32,14 @@ public class CustomerFactory {
 	 * @throws CustomerException if the customerCode is not one of the three valid codes listed in Section 5.3 of the Assignment Specification. 
 	 */
 	public static Customer getCustomer(String customerCode, String name, String mobileNumber, int locationX,  int locationY) throws CustomerException{
-		// TO DO
+		if (customerCode == "PUC"){
+			return new PickUpCustomer(name, mobileNumber, locationX, locationY);
+		} else if (customerCode == "DNC"){
+			return new DroneDeliveryCustomer(name, mobileNumber, locationX, locationY);
+		} else if (customerCode == "DVC"){
+			return new DroneDeliveryCustomer(name, mobileNumber, locationX, locationY);
+		} else {
+			throw new CustomerException(customerCode + " is not a valid type of customer");
+		}
 	}
 }

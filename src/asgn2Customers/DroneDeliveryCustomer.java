@@ -28,8 +28,8 @@ public class DroneDeliveryCustomer extends Customer {
 	 * @throws CustomerException if supplied parameters are invalid
 	 * 
 	 */
-	public DroneDeliveryCustomer(String name, String mobileNumber, int locationX, int locationY) throws CustomerException {
-		// TO DO		
+	public DroneDeliveryCustomer(String name, String mobileNumber, int locationX, int locationY) throws CustomerException {		
+		super(name, mobileNumber, locationX, locationY, "Drone");
 	}
 
 	/**
@@ -40,9 +40,17 @@ public class DroneDeliveryCustomer extends Customer {
 	 */
 	@Override
 	public double getDeliveryDistance() {
-		// TO DO
-
+		// this is to make the math easier to read
+		// 'a' and 'b' come from Pythagoras theorem --> a^2 + b^2 = c^2
+		double a = (double)this.getLocationX();
+		double b = (double)this.getLocationY();
+		
+		// spacing and indenting was done for ease of reading and debugging
+		return(
+				Math.sqrt(
+						( Math.pow(a, 2.0) + Math.pow(b, 2.0) )
+					)
+				);
 	}
 	
-
 }
