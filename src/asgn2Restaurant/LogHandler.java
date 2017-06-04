@@ -3,6 +3,7 @@ package asgn2Restaurant;
 
 import java.util.ArrayList;
 import asgn2Customers.Customer;
+import asgn2Customers.CustomerFactory;
 import asgn2Exceptions.CustomerException;
 import asgn2Exceptions.LogHandlerException;
 import asgn2Exceptions.PizzaException;
@@ -37,8 +38,20 @@ public class LogHandler {
 	 * 
 	 */
 	public static ArrayList<Customer> populateCustomerDataset(String filename) throws CustomerException, LogHandlerException{
-		//TODO
-		return null;
+		ArrayList<Customer> customerArray = new ArrayList<Customer>();
+		BufferedReader reader;
+		String line;
+		
+		try{
+			reader = new BufferedReader(new FileReader(filename));
+			while((line = reader.readLine()) != null){
+				customerArray.add(createCustomer(line));
+			}
+			reader.close();
+		}catch (IOException e){
+			throw new LogHandlerException("Can not read: " + filename);
+		}
+		return customerArray;
 	}		
 
 	/**
@@ -75,8 +88,18 @@ public class LogHandler {
 	 * @throws LogHandlerException - If there was a problem parsing the line from the log file.
 	 */
 	public static Customer createCustomer(String line) throws CustomerException, LogHandlerException{
-		// TO DO
-		return null;
+		String[] data;
+		data = line.split(SEPERATOR);
+		if(data.length != DATALENGTH){
+			throw new LogHandlerException("Input data is wrong dimensions");
+		}
+		try{
+			return  CustomerFactory.getCustomer(data[4], data[2], data[3], Integer.parseInt(data[5]), Integer.parseInt(data[6]));
+		} catch (NumberFormatException e){
+			throw new LogHandlerException("Wrong data format in locationX or locationY");
+		} catch (CustomerException e){
+			throw new CustomerException("Data parsed does not conform to document standards", e);
+		}
 	}
 	
 	/**
