@@ -56,7 +56,7 @@ public class PizzaRestaurant {
 	public boolean processLog(String filename) throws CustomerException, PizzaException, LogHandlerException{
 		
 		this.pizzas = LogHandler.populatePizzaDataset(filename);
-	
+		this.customers = LogHandler.populateCustomerDataset(filename);
 		//TODO
 		//Make this false if it fails, without catching
 		//this.customers = LogHandler.populateCustomerDataset(filename);
@@ -71,7 +71,7 @@ public class PizzaRestaurant {
 	 */
 	public Customer getCustomerByIndex(int index) throws CustomerException{
 		if(index < 0 || index >= getNumCustomerOrders()){
-			throw new CustomerException("Index out of range");
+			throw new CustomerException("Customer index out of range");
 		}
 		return this.customers.get(index);
 	}
@@ -118,7 +118,7 @@ public class PizzaRestaurant {
 	 */
 	public double getTotalDeliveryDistance(){
 		double totalDistance = 0;
-		for (Customer currentCustomer : customers){
+		for(Customer currentCustomer : customers){
 			totalDistance += currentCustomer.getDeliveryDistance();
 		}
 		return totalDistance;

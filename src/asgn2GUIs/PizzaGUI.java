@@ -39,7 +39,7 @@ import javax.swing.*;
 public class PizzaGUI extends javax.swing.JFrame implements Runnable, ActionListener {
 	
 	private static final long serialVersionUID = -7031008862559936404L;
-	public static final int WIDTH = 640;
+	public static final int WIDTH = 740;
 	public static final int HEIGHT = 480;
 	
 	private PizzaRestaurant restaurant;
@@ -191,6 +191,7 @@ public class PizzaGUI extends javax.swing.JFrame implements Runnable, ActionList
 	}
 	String line;
 	Pizza currentPizza;
+	Customer currentCustomer;
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		//A try-Catch around all events, to make sure all exceptions are caught and displayed
@@ -232,14 +233,26 @@ public class PizzaGUI extends javax.swing.JFrame implements Runnable, ActionList
 		} else if (src==btnInfo) {
 			pizzaDisplay.setText(String.format("Pizza\n%-12s %-4s %-7s %-7s %-7s",
 					"Type","Qty","Price"," Cost","  Profit\n"));
-			customerDisplay.setText(String.format("Customers\n%-12s %-10s %-8s %-4s %-4s",
-					"Name","Number","Type","Loc","Dist\n"));
+			customerDisplay.setText(String.format("Customers\n%-12s %-10s %-8s %-6s %-6s %-4s",
+					"Name","Number","Type","X-Loc","Y-Loc","Dist\n"));
 				for(int i = 0;i < restaurant.getNumPizzaOrders(); i++){
 							currentPizza = restaurant.getPizzaByIndex(i);
 							line = String.format("%-12s %-4d $%-7.2f $%-7.2f $%-7.2f", currentPizza.getPizzaType(),currentPizza.getQuantity(), 
 									currentPizza.getOrderPrice(),currentPizza.getOrderCost(), 
 									currentPizza.getOrderProfit());
 							pizzaDisplay.append(line + "\n");
+							
+							
+							currentCustomer = restaurant.getCustomerByIndex(i);
+							line = String.format("%-12s %-10s %-8s %-6s %-6s %-4.2f",
+									currentCustomer.getName(),
+									currentCustomer.getMobileNumber(),
+									currentCustomer.getCustomerType(),
+									currentCustomer.getLocationX(),
+									currentCustomer.getLocationY(),
+									currentCustomer.getDeliveryDistance()
+									);
+							customerDisplay.append(line + "\n");
 				}
 			
 		} //Catch and Display the exceptions as Error Message to the user
