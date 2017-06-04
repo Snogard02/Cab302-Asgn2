@@ -39,7 +39,7 @@ import javax.swing.*;
 public class PizzaGUI extends javax.swing.JFrame implements Runnable, ActionListener {
 	
 	private static final long serialVersionUID = -7031008862559936404L;
-	public static final int WIDTH = 740;
+	public static final int WIDTH = 900;
 	public static final int HEIGHT = 480;
 	
 	private PizzaRestaurant restaurant;
@@ -233,7 +233,7 @@ public class PizzaGUI extends javax.swing.JFrame implements Runnable, ActionList
 		} else if (src==btnInfo) {
 			pizzaDisplay.setText(String.format("Pizza\n%-12s %-4s %-7s %-7s %-7s",
 					"Type","Qty","Price"," Cost","  Profit\n"));
-			customerDisplay.setText(String.format("Customers\n%-12s %-10s %-8s %-6s %-6s %-4s",
+			customerDisplay.setText(String.format("Customers\n%-20s %-10s %-8s %-6s %-6s %-4s",
 					"Name","Number","Type","X-Loc","Y-Loc","Dist\n"));
 				for(int i = 0;i < restaurant.getNumPizzaOrders(); i++){
 							currentPizza = restaurant.getPizzaByIndex(i);
@@ -244,7 +244,7 @@ public class PizzaGUI extends javax.swing.JFrame implements Runnable, ActionList
 							
 							
 							currentCustomer = restaurant.getCustomerByIndex(i);
-							line = String.format("%-12s %-10s %-8s %-6s %-6s %-4.2f",
+							line = String.format("%-20s %-10s %-8s %-6s %-6s %-4.2f",
 									currentCustomer.getName(),
 									currentCustomer.getMobileNumber(),
 									currentCustomer.getCustomerType(),
