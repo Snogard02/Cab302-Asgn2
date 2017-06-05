@@ -218,28 +218,47 @@ public class PizzaGUI extends javax.swing.JFrame implements Runnable, ActionList
 				btnInfo.setEnabled(true);
 					
 			}
-		//On clicking the Reset button
-		} else if (src==btnReset) {
+		
+		} else if (src==btnReset) {  //On clicking the Reset button
 			restaurant.resetDetails();
 			pizzaDisplay.setText("");
 			customerDisplay.setText("");
 			btnCalc.setEnabled(false);
 			btnInfo.setEnabled(false);
-		//On clicking the Calculation button
-		} else if (src==btnCalc) {
+			
+		} else if (src==btnCalc) {  //On clicking the Calculation button
 			pizzaDisplay.setText(String.format("Total profits: $%.2f",restaurant.getTotalProfit()));
 			customerDisplay.setText(String.format("Total distance: %.2f Km",restaurant.getTotalDeliveryDistance()));
-		//On clicking the Information button
-		} else if (src==btnInfo) {
-			pizzaDisplay.setText(String.format("Pizza\n%-12s %-4s %-7s %-7s %-7s",
-					"Type","Qty","Price"," Cost","  Profit\n"));
-			customerDisplay.setText(String.format("Customers\n%-20s %-10s %-8s %-6s %-6s %-4s",
-					"Name","Number","Type","X-Loc","Y-Loc","Dist\n"));
+			
+			
+		} else if (src==btnInfo) {  //On clicking the Information button
+			pizzaDisplay.setText(String.format(
+					"Pizza\n%-12s %-4s %-7s %-7s %-7s",
+					"Type",
+					"Qty",
+					"Price",
+					" Cost",
+					"  Profit\n"));
+			customerDisplay.setText(String.format(
+					"Customers\n%-20s %-10s %-8s %-6s %-6s %-4s",
+					"Name",
+					"Number",
+					"Type",
+					"X-Loc",
+					"Y-Loc",
+					"Dist\n")
+					);
+			
 				for(int i = 0;i < restaurant.getNumPizzaOrders(); i++){
+					
 							currentPizza = restaurant.getPizzaByIndex(i);
-							line = String.format("%-12s %-4d $%-7.2f $%-7.2f $%-7.2f", currentPizza.getPizzaType(),currentPizza.getQuantity(), 
-									currentPizza.getOrderPrice(),currentPizza.getOrderCost(), 
-									currentPizza.getOrderProfit());
+							line = String.format("%-12s %-4d $%-7.2f $%-7.2f $%-7.2f",
+									currentPizza.getPizzaType(),
+									currentPizza.getQuantity(), 
+									currentPizza.getOrderPrice(),
+									currentPizza.getOrderCost(), 
+									currentPizza.getOrderProfit()
+									);
 							pizzaDisplay.append(line + "\n");
 							
 							
