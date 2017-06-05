@@ -28,6 +28,10 @@ public class RestaurantPizzaTests {
 	public void noFile() throws PizzaException, LogHandlerException, CustomerException{
 		testRestraunt.processLog("asdasdf");
 	}
+	@Test (expected = PizzaException.class)
+	public void indexOutOfBounds() throws PizzaException, LogHandlerException, CustomerException{
+		testRestraunt.getPizzaByIndex(200);
+	}
 	@Test (expected = LogHandlerException.class)
 	public void fileError_wrongFormat_date() throws PizzaException, LogHandlerException, CustomerException{
 		testRestraunt.processLog(".//logs/fileError_wrongFormat_date.txt");
