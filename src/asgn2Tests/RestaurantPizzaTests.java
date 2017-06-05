@@ -1,10 +1,12 @@
 package asgn2Tests;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import asgn2Exceptions.CustomerException;
 import asgn2Exceptions.LogHandlerException;
 import asgn2Exceptions.PizzaException;
+import asgn2Restaurant.LogHandler;
 import asgn2Restaurant.PizzaRestaurant;
 
 /**
@@ -16,9 +18,34 @@ import asgn2Restaurant.PizzaRestaurant;
  */
 public class RestaurantPizzaTests {
 	PizzaRestaurant testRestraunt;
-	@Test
-	public void full_test() throws PizzaException, LogHandlerException, CustomerException{
+	@Test @Before
+	public void setup(){
 		testRestraunt = new PizzaRestaurant();
-		testRestraunt.processLog("/home/josh/git/asgn2/logs/20170101.txt");
 	}
+	@Test (expected = LogHandlerException.class)
+	public void noFile() throws PizzaException, LogHandlerException, CustomerException{
+		testRestraunt.processLog("asdasdf");
+	}
+	@Test (expected = LogHandlerException.class)
+	public void fileError_wrongFormat_date() throws PizzaException, LogHandlerException, CustomerException{
+		testRestraunt.processLog(".//logs/fileError_wrongFormat_date.txt");
+	}
+	@Test (expected = LogHandlerException.class)
+	public void fileError_wrongFormat_quantity() throws PizzaException, LogHandlerException, CustomerException{
+		testRestraunt.processLog(".//logs/fileError_wrongFormat_quantity.txt");
+	}
+	@Test (expected = PizzaException.class)
+	public void fileError_wrongFormat_pizzaCode() throws PizzaException, LogHandlerException, CustomerException{
+		testRestraunt.processLog(".//logs/fileError_wrongFormat_pizzaCode.txt");
+	}
+	@Test (expected = PizzaException.class)
+	public void pizzaError_deliveredBerforeMade() throws PizzaException, LogHandlerException, CustomerException{
+		testRestraunt.processLog(".//logs/pizzaError_deliveredBerforeMade.txt");
+	}
+	@Test (expected = PizzaException.class)
+	public void pizzaError_thrownOut() throws PizzaException, LogHandlerException, CustomerException{
+		testRestraunt.processLog(".//logs/pizzaError_thrownOut.txt");
+	}
+	//get index out of range
+	//get profit
 }
