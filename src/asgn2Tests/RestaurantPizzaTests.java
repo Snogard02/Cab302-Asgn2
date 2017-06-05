@@ -1,5 +1,7 @@
 package asgn2Tests;
 
+import static org.junit.Assert.*;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -46,6 +48,8 @@ public class RestaurantPizzaTests {
 	public void pizzaError_thrownOut() throws PizzaException, LogHandlerException, CustomerException{
 		testRestraunt.processLog(".//logs/pizzaError_thrownOut.txt");
 	}
-	//get index out of range
-	//get profit
+	@Test (expected = PizzaException.class)
+	public void returns_false() throws PizzaException, LogHandlerException, CustomerException{
+		assertFalse(testRestraunt.processLog(".//logs/pizzaError_deliveredBerforeMade.txt"));
+	}
 }

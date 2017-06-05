@@ -52,8 +52,12 @@ public class PizzaTests {
 	@Test
 	public void containsTopping() throws PizzaException{
 		testPizza = new VegetarianPizza(1,LocalTime.of(21, 10, 00),LocalTime.of(21, 40, 00));
-		testPizza.containsTopping(PizzaTopping.CHEESE);
-		
+		assertTrue(testPizza.containsTopping(PizzaTopping.CHEESE));
+	}
+	@Test
+	public void  getCost() throws PizzaException{
+		testPizza = new VegetarianPizza(1,LocalTime.of(21, 10, 00),LocalTime.of(21, 40, 00));
+		assertTrue(testPizza.getCostPerPizza() == 5.5);
 	}
 
 }
