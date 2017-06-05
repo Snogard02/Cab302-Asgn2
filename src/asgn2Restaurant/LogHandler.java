@@ -23,7 +23,7 @@ import java.util.ArrayList;
  * and Customer object - either as an individual Pizza/Customer object or as an
  * ArrayList of Pizza/Customer objects.
  * 
- * @author Person A and Person B
+ * @author Joshua Serong and Christopher Dare
  *
  */
 public class LogHandler {
