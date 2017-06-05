@@ -13,8 +13,7 @@ import asgn2Customers.DroneDeliveryCustomer;
 /**
  * A class the that tests the asgn2Customers.CustomerFactory class.
  * 
- * @author Person A
- *
+ * @author Christopher Dare
  */
 public class CustomerFactoryTests {
 	
