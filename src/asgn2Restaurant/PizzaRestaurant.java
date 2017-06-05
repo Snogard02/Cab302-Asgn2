@@ -17,7 +17,7 @@ import asgn2Exceptions.PizzaException;
  *  Any exceptions raised by one of the methods called by this class should be passed to asgn2GUIs.PizzaGUI so that it can be shown to
  *  the user.
  * 
- * @author Person A and Person B
+ * @author Joshua Serong and Christopher Dare
  *
  */
 public class PizzaRestaurant {
@@ -54,13 +54,13 @@ public class PizzaRestaurant {
      *
 	 */
 	public boolean processLog(String filename) throws CustomerException, PizzaException, LogHandlerException{
-		
+		try{
 		this.pizzas = LogHandler.populatePizzaDataset(filename);
 		this.customers = LogHandler.populateCustomerDataset(filename);
-
-		//TODO
-		//Make this false if it fails, without catching
-		//this.customers = LogHandler.populateCustomerDataset(filename);
+		}
+		catch(CustomerException e){
+			throw new CustomerException(e.toString());
+		}
 		return true;
 	}
 

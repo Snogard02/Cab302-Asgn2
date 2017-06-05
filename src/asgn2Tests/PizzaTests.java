@@ -15,7 +15,7 @@ import asgn2Pizzas.VegetarianPizza;
  * Note that an instance of asgn2Pizzas.MeatLoversPizza should be used to test the functionality of the 
  * asgn2Pizzas.Pizza abstract class. 
  * 
- * @author Person B
+ * @author Joshua Serong
  *
  */
 public class PizzaTests {
@@ -47,6 +47,13 @@ public class PizzaTests {
 	@Test (expected = PizzaException.class)
 	public void deliver_before_order() throws PizzaException{
 		testPizza = new VegetarianPizza(1,LocalTime.of(21, 10, 00),LocalTime.of(21, 00, 00));
+	}
+	
+	@Test
+	public void containsTopping() throws PizzaException{
+		testPizza = new VegetarianPizza(1,LocalTime.of(21, 10, 00),LocalTime.of(21, 40, 00));
+		testPizza.containsTopping(PizzaTopping.CHEESE);
+		
 	}
 
 }
