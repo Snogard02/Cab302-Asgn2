@@ -69,6 +69,8 @@ public class PizzaRestaurant {
 	 * @param index - The index within the customers field to retrieve.
 	 * @return The Customer object located at the specified index.
 	 * @throws CustomerException if index is invalid.
+	 * 
+	 * Author: Christopher Dare
 	 */
 	public Customer getCustomerByIndex(int index) throws CustomerException{
 		if(index < 0 || index >= getNumCustomerOrders()){
@@ -105,6 +107,8 @@ public class PizzaRestaurant {
 	 * the value returned by getNumPizzaOrders.
 	 * 
 	 * @return the number of objects contained in the customers field.
+	 * 
+	 * Author: Christopher Dare
 	 */
 	public int getNumCustomerOrders(){
 		return this.customers.size();
@@ -116,6 +120,8 @@ public class PizzaRestaurant {
 	 * Returns the total delivery distance for all of the customers.
 	 * 
 	 * @return the total delivery distance for all Customers objects in the customers field.
+	 * 
+	 * Author: Christopher Dare
 	 */
 	public double getTotalDeliveryDistance(){
 		double totalDistance = 0;
