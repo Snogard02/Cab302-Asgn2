@@ -1,0 +1,200 @@
+* 81910cf : added a test in RestaurantPizzaTests
+* eef9fbe : more tests
+* 7652443 : half way through JUnit testing
+* 5d942e8 : Testing Stuff
+*   2e9f96f : Merge branch 'master' of https://github.com/Snogard02/Cab302-Asgn2
+|\  
+| * 7cdeb9f : latest minor error adjustments
+* | 82a57c1 : Commenting
+|/  
+* 77984d2 : layout and minor merge/bug fixes
+*   a4d5907 : coz it said so
+|\  
+| * 93a565f : More restaurant testing
+* | b5a3e2a : Finishing touches of GUI for clean formatting
+* | 25f0598 : Finished up the GUI, and in tern fixed most if not all errors that came with previous code
+* | 46ac5b0 : Finished all of asgn2Customers and the rest of asgn2Restaurant
+* | 5b37ac2 : Finished all of asgn2Customers
+|/  
+* 748497b : Testing update
+* c1ff86a : More Pizza Log Handler Testing and GUI changes
+* 0d7fef2 : Info and calc button now disabled when no file loaded
+* 27e7042 : GUI edits and some testing stuff
+* 8901a4f : GUI now display pizza and costumer information in seperate components
+* f3407fa : Changed so pizzaWizard is only entry point
+* 02adb9e : Formatting Improvements, fixed text display alighnment, and exceptions now displayed as error messages to end user
+* 1104ce1 : Fixed GUI display for doubles
+* 54ee0fc : Fixed GUI display for pizza
+* 8818439 : First Commit
+* 434d3ad : .
+* f748592 : .
+* dfba347 : .
+* e951c1e : .commit 81910cf954302429bee4074334c0611a31c68155
+Author: chris <christopher.d.dare@gmail.com>
+Date:   Mon Jun 5 20:14:55 2017 +1000
+
+    added a test in RestaurantPizzaTests
+
+commit eef9fbe8a84f6f4b288d986c254029712efbd991
+Author: chris <christopher.d.dare@gmail.com>
+Date:   Mon Jun 5 20:11:02 2017 +1000
+
+    more tests
+
+commit 76524439d2986907e912b67ab8e146e6fef5e777
+Author: Christopher Dare <christopher.d.dare@gmail.com>
+Date:   Mon Jun 5 12:32:35 2017 +1000
+
+    half way through JUnit testing
+
+commit 5d942e8761aa2bc077ef56e8d3c96593916416cc
+Author: Josh <serong28@gmail.com>
+Date:   Mon Jun 5 12:28:12 2017 +1000
+
+    Testing Stuff
+
+commit 2e9f96f9c065f1275ff7e1df3a7ccc79a3d219fe
+Merge: 82a57c1 7cdeb9f
+Author: Josh <serong28@gmail.com>
+Date:   Mon Jun 5 11:35:06 2017 +1000
+
+    Merge branch 'master' of https://github.com/Snogard02/Cab302-Asgn2
+
+commit 82a57c15dc3897337a95601c09c5cbdc4141ee03
+Author: Josh <serong28@gmail.com>
+Date:   Mon Jun 5 11:35:01 2017 +1000
+
+    Commenting
+
+commit 7cdeb9f60dfc7e4106feca6f7b08a96d304d33b6
+Author: Christopher Dare <christopher.d.dare@gmail.com>
+Date:   Mon Jun 5 11:33:43 2017 +1000
+
+    latest minor error adjustments
+
+commit 77984d231a26fcaa050c8120a2b4d7cf6dc0ce10
+Author: Christopher Dare <christopher.d.dare@gmail.com>
+Date:   Mon Jun 5 11:19:39 2017 +1000
+
+    layout and minor merge/bug fixes
+
+commit a4d59076b738d3721d27c33510744e798556e361
+Merge: b5a3e2a 93a565f
+Author: Christopher Dare <christopher.d.dare@gmail.com>
+Date:   Mon Jun 5 11:10:53 2017 +1000
+
+    coz it said so
+
+commit 93a565f38ac3413804823cb3d23ad7cffa017eb8
+Author: Josh <serong28@gmail.com>
+Date:   Mon Jun 5 09:56:13 2017 +1000
+
+    More restaurant testing
+
+commit b5a3e2ab36b2c5452cc375d74cb4069e73805084
+Author: Christopher Dare <christopher.d.dare@gmail.com>
+Date:   Mon Jun 5 09:16:20 2017 +1000
+
+    Finishing touches of GUI for clean formatting
+
+commit 25f0598fe32dd262c9dd652634fde8aafce3482f
+Author: Christopher Dare <christopher.d.dare@gmail.com>
+Date:   Mon Jun 5 09:08:41 2017 +1000
+
+    Finished up the GUI, and in tern fixed most if not all errors that came with previous code
+
+commit 46ac5b00557169de1270c8c0b24a5934981dafcc
+Author: Christopher Dare <n9179861@qut.edu.au>
+Date:   Mon Jun 5 08:01:47 2017 +1000
+
+    Finished all of asgn2Customers and the rest of asgn2Restaurant
+
+commit 5b37ac20e1240684fbd6f6c7439b6e92cc8482af
+Author: Christopher Dare <n9179861@qut.edu.au>
+Date:   Mon Jun 5 04:42:24 2017 +1000
+
+    Finished all of asgn2Customers
+
+commit 748497b2dfc450161ea8f93fc17de6c36b4c48da
+Author: Josh <serong28@gmail.com>
+Date:   Fri Jun 2 14:12:26 2017 +1000
+
+    Testing update
+
+commit c1ff86a678efec0841544132f690657adaa0fc8c
+Author: Josh <serong28@gmail.com>
+Date:   Fri Jun 2 13:50:54 2017 +1000
+
+    More Pizza Log Handler Testing and GUI changes
+
+commit 0d7fef28623821d866ce9ead26372fac3a3378b5
+Author: Josh <serong28@gmail.com>
+Date:   Fri Jun 2 09:12:39 2017 +1000
+
+    Info and calc button now disabled when no file loaded
+
+commit 27e7042eb6dd02868f7cd1d16a86172242f625bb
+Author: Josh <serong28@gmail.com>
+Date:   Thu Jun 1 21:43:46 2017 +1000
+
+    GUI edits and some testing stuff
+
+commit 8901a4f11c4847ae4727d3652eb677244afce153
+Author: Josh <serong28@gmail.com>
+Date:   Thu Jun 1 21:02:08 2017 +1000
+
+    GUI now display pizza and costumer information in seperate components
+
+commit f3407fa36d08d074a17b4ec52cf227d2e8ec58db
+Author: Josh <serong28@gmail.com>
+Date:   Thu Jun 1 20:14:40 2017 +1000
+
+    Changed so pizzaWizard is only entry point
+
+commit 02adb9ec77400cd7f0693d4c75dcc32e63a3fafd
+Author: Josh <serong28@gmail.com>
+Date:   Thu Jun 1 20:09:39 2017 +1000
+
+    Formatting Improvements, fixed text display alighnment, and exceptions now displayed as error messages to end user
+
+commit 1104ce188c09d4a360619f7f8372f5f3861931e8
+Author: Josh <serong28@gmail.com>
+Date:   Thu Jun 1 19:33:01 2017 +1000
+
+    Fixed GUI display for doubles
+
+commit 54ee0fc3fd397d6137556384536414531fc6f7c9
+Author: Josh <serong28@gmail.com>
+Date:   Thu Jun 1 19:19:09 2017 +1000
+
+    Fixed GUI display for pizza
+
+commit 8818439ea62b6fd3b49808bbcbc5b27be402490b
+Author: Josh <serong28@gmail.com>
+Date:   Thu Jun 1 18:51:44 2017 +1000
+
+    First Commit
+
+commit 434d3ada012f0e03d37b9527d8f9bdff01ca572b
+Author: alan <awoodley@qut.edu.au>
+Date:   Tue Apr 25 18:36:28 2017 +1000
+
+    .
+
+commit f748592b2f1fe58edc493dfacce042ef85c91244
+Author: alan <awoodley@qut.edu.au>
+Date:   Tue Apr 25 18:05:34 2017 +1000
+
+    .
+
+commit dfba34718a2fd75e1bc3721b8770c7466003ab56
+Author: alan <awoodley@qut.edu.au>
+Date:   Tue Apr 25 18:04:54 2017 +1000
+
+    .
+
+commit e951c1e8b6ea69b11df52b6f3f175173c920375e
+Author: awoodley <a.woodley@qut.edu.au>
+Date:   Tue Apr 25 06:32:36 2017 +0000
+
+    .
